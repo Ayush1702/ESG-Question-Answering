@@ -42,7 +42,7 @@ set_bg_hack_url()
 
 def esg_question_answering():
     config = RobertaConfig.from_json_file('roberta-base/config.json')
-    model = AutoModelForQuestionAnswering.from_pretrained('roberta-base', from_tf=True, config=config)
+    model = AutoModelForQuestionAnswering.from_pretrained('roberta-base', config=config)
     return model
 
 # if 'context' not in st.session_state:
