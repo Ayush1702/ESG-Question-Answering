@@ -70,12 +70,12 @@ proxies = {
 if st.button('Submit'):
     context_input = st.session_state.context
     question_input = st.session_state.question_default
-    model_name = "/app/esg-question-answering/roberta-base"
+    model_name = "/app/esg-question-answering/roberta-base/"
     with st.spinner('Loading Model'):
         config = RobertaConfig.from_pretrained(model_name, cache_dir= model_name, proxies=proxies)
-        esg_model = RobertaForQuestionAnswering.from_config("/app/esg-question-answering/roberta-base")
-    tokenizer_path = "/app/esg-question-answering/roberta-base"
-    tokenizer = RobertaTokenizer.from_pretrained(tokenizer_path)
+        esg_model = RobertaForQuestionAnswering.from_config("/app/esg-question-answering/roberta-base/")
+    tokenizer_path = "/app/esg-question-answering/roberta-base/"
+    tokenizer = RobertaTokenizer.from_pretrained(tokenizer_path, proxies=proxies)
     question_answerer = pipeline("question-answering", model=esg_model, tokenizer=tokenizer)
     result = question_answerer(question=question_input, context=context_input)
     st.write(HTML_WRAPPER.format(result['answer']), unsafe_allow_html=True)
