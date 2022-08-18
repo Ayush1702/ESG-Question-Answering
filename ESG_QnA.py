@@ -70,8 +70,8 @@ proxies = {
 if st.button('Submit'):
     context_input = st.session_state.context
     question_input = st.session_state.question_default
-    model_name = "roberta-base/"
-    config = RobertaConfig.from_pretrained(model_name, cache_dir= model_name, proxies=proxies)
+    model_name = "roberta-base/config.json"
+    config = AutoConfig.from_pretrained(model_name, cache_dir= model_name, proxies=proxies)
     esg_model = AutoModelForQuestionAnswering.from_config(config)
     tokenizer_path = "roberta-base/"
     tokenizer = RobertaTokenizer.from_pretrained(tokenizer_path, proxies=proxies)
