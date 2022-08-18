@@ -3,16 +3,13 @@ import copy
 import numpy as np
 from transformers import AutoConfig, AutoModel, QuestionAnsweringPipeline
 from transformers import AutoModelForQuestionAnswering, AutoTokenizer, pipeline
-from transformers import RobertaTokenizer, RobertaForQuestionAnswering
-import torch
+from transformers import RobertaTokenizer, RobertaForQuestionAnswering, RobertaConfig
 from numpy import ndarray
 from transformers import pipeline
 import streamlit as st
 
 st.title("ESG Question Answering")
 st.write('You can paste your context text in the field below along with the question.')
-
-gpu_device = "cuda:0" if torch.cuda.is_available() else "cpu"
 
 HTML_WRAPPER = """<div style="
                        overflow-x: auto; 
@@ -70,9 +67,11 @@ st.session_state.context, st.session_state.question_default = context_para_input
 if st.button('Submit'):
     context_input = st.session_state.context
     question_input = st.session_state.question_default
+    model_name = "/app/esg-question-answering/roberta-base"
     with st.spinner('Loading Model'):
-        esg_model = RobertaForQuestionAnswering.from_pretrained("/app/esg-question-answering/roberta-base/")
-    tokenizer_path = "/app/esg-question-answering/roberta-base/"
+        config = RobertaConfig.from_pretrained(model_name, cache_dir= model_name)
+        esg_model = RobertaForQuestionAnswering.from_config("/app/esg-question-answering/roberta-base")
+    tokenizer_path = "/app/esg-question-answering/roberta-base"
     tokenizer = RobertaTokenizer.from_pretrained(tokenizer_path)
     question_answerer = pipeline("question-answering", model=esg_model, tokenizer=tokenizer)
     result = question_answerer(question=question_input, context=context_input)

@@ -2,5 +2,3 @@ transformers[sentencepiece]
 streamlit
 pandas
 numpy
-torch
-spacy
