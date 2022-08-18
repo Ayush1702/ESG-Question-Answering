@@ -5,12 +5,10 @@ from transformers import AutoConfig, AutoModel, QuestionAnsweringPipeline
 from transformers import AutoModelForQuestionAnswering, AutoTokenizer, pipeline
 import torch
 from numpy import ndarray
-from spacy.lang.en import English
 from transformers import pipeline
 import streamlit as st
 
 st.title("ESG Question Answering")
-st.text(f'torch version  is {torch.__version__}')
 st.write('You can paste your context text in the field below along with the question.')
 
 gpu_device = "cuda:0" if torch.cuda.is_available() else "cpu"
