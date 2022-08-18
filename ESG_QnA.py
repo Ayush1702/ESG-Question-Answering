@@ -67,10 +67,10 @@ if st.button('Submit'):
     context_input = st.session_state.context
     question_input = st.session_state.question_default
     with st.spinner('Loading Model'):
-        esg_model = esg_question_answering().to(gpu_device)
+        esg_model = esg_question_answering()
     tokenizer_path = "roberta-base"
     tokenizer = AutoTokenizer.from_pretrained(tokenizer_path, local_files_only=True)
-    question_answerer = pipeline("question-answering", model=esg_model, tokenizer=tokenizer, device=0)
+    question_answerer = pipeline("question-answering", model=esg_model, tokenizer=tokenizer)
     result = question_answerer(question=question_input, context=context_input)
     st.write(HTML_WRAPPER.format(result['answer']), unsafe_allow_html=True)
 
