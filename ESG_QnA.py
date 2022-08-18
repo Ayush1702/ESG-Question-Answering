@@ -1,7 +1,7 @@
 import re
 import copy
 import numpy as np
-from transformers import AutoConfig, AutoModel, QuestionAnsweringPipeline
+from transformers import AutoConfig, AutoModel, QuestionAnsweringPipeline, RobertaConfig
 from transformers import AutoModelForQuestionAnswering, AutoTokenizer, pipeline
 from numpy import ndarray
 from transformers import pipeline
@@ -41,7 +41,7 @@ def set_bg_hack_url():
 set_bg_hack_url()
 
 def esg_question_answering():
-    config = AutoConfig.from_json_file('https://github.com/Ayush1702/ESG-Question-Answering/blob/5d1e30c614fd858d2edcfa185ed510fcb9c89c39/roberta-base/config.json')
+    config = RobertaConfig.from_json_file('https://github.com/Ayush1702/ESG-Question-Answering/blob/5d1e30c614fd858d2edcfa185ed510fcb9c89c39/roberta-base/config.json')
     model = AutoModelForQuestionAnswering.from_pretrained('roberta-base', from_tf=True, config=config)
     return model
 
