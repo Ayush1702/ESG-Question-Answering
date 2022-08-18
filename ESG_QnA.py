@@ -3,7 +3,6 @@ import copy
 import numpy as np
 from transformers import AutoConfig, AutoModel, QuestionAnsweringPipeline
 from transformers import AutoModelForQuestionAnswering, AutoTokenizer, pipeline
-from transformers import RobertaTokenizer, RobertaForQuestionAnswering, RobertaConfig
 from numpy import ndarray
 from transformers import pipeline
 import streamlit as st
@@ -32,7 +31,7 @@ def set_bg_hack_url():
          f"""
          <style>
          .stApp {{
-             background: url(https://unsplash.com/photos/jqgsM3B9Fpo/download?force=true);
+             background: url(https://unsplash.com/photos/3ODJ3CeHlUo/download?ixid=MnwxMjA3fDB8MXxzZWFyY2h8Mjd8fGp1bmdsZXxlbnwwfHx8fDE2NjA3ODYzNDM&force=true);
              background-size: cover
          }}
          </style>
@@ -41,14 +40,10 @@ def set_bg_hack_url():
      )
 set_bg_hack_url()
 
-# @st.cache(allow_output_mutation=True)
-# def esg_question_answering():
-    # model_name = "/app/esg-question-answering/roberta-base"
-    # # config = AutoConfig.from_pretrained(model_name, cache_dir= model_name)
-    # model = RobertaForQuestionAnswering.from_pretrained(model_name)
-    # # config = BertConfig.from_pretrained('bert-base-uncased')    # Download configuration from S3 and cache.
-    # # model = AutoModelForQuestionAnswering.from_config(config)
-    # return model
+def esg_question_answering():
+    model_name = "roberta-base/"
+    model = AutoModelForQuestionAnswering.from_pretrained(model_name, local_files_only=True)
+    return model
 
 # if 'context' not in st.session_state:
     # st.session_state.context = None
@@ -61,34 +56,16 @@ with open("sample_context.txt", encoding="utf-8") as f:
 session_question_input_sample = "What is the emission reduction target aimed?"
 
 context_para_input = st.text_area("Enter Context Paragraph", sample_input_context, height = 400)
-question_input = st.text_area("Enter Question", session_question_input_sample, height = 25)
+question_input = st.text_area("Enter Question", session_question_input_sample, height = 45)
 st.session_state.context, st.session_state.question_default = context_para_input, question_input
-proxies = {
-  "http": "http://10.10.1.10:3128",
-  "https": "https://10.10.1.10:1080",
-}
+
 if st.button('Submit'):
     context_input = st.session_state.context
     question_input = st.session_state.question_default
-    model_name = "roberta-base/config.json"
-    config = AutoConfig.from_pretrained(model_name, cache_dir= model_name, proxies=proxies)
-    esg_model = AutoModelForQuestionAnswering.from_config(config)
-    tokenizer_path = "roberta-base/"
-    tokenizer = RobertaTokenizer.from_pretrained(tokenizer_path, proxies=proxies)
+    with st.spinner('Loading Model'):
+        esg_model = esg_question_answering()
+    tokenizer_path = "roberta-base"
+    tokenizer = AutoTokenizer.from_pretrained(tokenizer_path, local_files_only=True)
     question_answerer = pipeline("question-answering", model=esg_model, tokenizer=tokenizer)
     result = question_answerer(question=question_input, context=context_input)
     st.write(HTML_WRAPPER.format(result['answer']), unsafe_allow_html=True)
-
-# Make predictions with the model
-# to_predict = [
-    # {
-        # "context": context_para_input,
-        # "qas": [
-            # {
-                # "question": "What is the emission reduction mechanism or technology used here?",
-                # "id": "0",
-            # }
-        # ],
-    # }
-# ]
-
