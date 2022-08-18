@@ -44,14 +44,14 @@ def set_bg_hack_url():
      )
 set_bg_hack_url()
 
-@st.cache(allow_output_mutation=True)
-def esg_question_answering():
-    model_name = "/app/esg-question-answering/roberta-base"
-    # config = AutoConfig.from_pretrained(model_name, cache_dir= model_name)
-    model = RobertaForQuestionAnswering.from_pretrained(model_name)
-    # config = BertConfig.from_pretrained('bert-base-uncased')    # Download configuration from S3 and cache.
-    # model = AutoModelForQuestionAnswering.from_config(config)
-    return model
+# @st.cache(allow_output_mutation=True)
+# def esg_question_answering():
+    # model_name = "/app/esg-question-answering/roberta-base"
+    # # config = AutoConfig.from_pretrained(model_name, cache_dir= model_name)
+    # model = RobertaForQuestionAnswering.from_pretrained(model_name)
+    # # config = BertConfig.from_pretrained('bert-base-uncased')    # Download configuration from S3 and cache.
+    # # model = AutoModelForQuestionAnswering.from_config(config)
+    # return model
 
 # if 'context' not in st.session_state:
     # st.session_state.context = None
@@ -71,7 +71,7 @@ if st.button('Submit'):
     context_input = st.session_state.context
     question_input = st.session_state.question_default
     with st.spinner('Loading Model'):
-        esg_model = esg_question_answering()
+        esg_model = RobertaForQuestionAnswering.from_pretrained(model_name)
     tokenizer_path = "/app/esg-question-answering/roberta-base/"
     tokenizer = RobertaTokenizer.from_pretrained(tokenizer_path)
     question_answerer = pipeline("question-answering", model=esg_model, tokenizer=tokenizer)
