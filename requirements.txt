@@ -1,0 +1,4 @@
+transformers[sentencepiece]
+streamlit
+pandas
+numpy
