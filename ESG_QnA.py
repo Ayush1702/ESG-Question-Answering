@@ -41,8 +41,8 @@ def set_bg_hack_url():
 set_bg_hack_url()
 
 def esg_question_answering():
-    model_name = "roberta-base/"
-    model = AutoModelForQuestionAnswering.from_pretrained(model_name, local_files_only=True)
+    config = AutoConfig.from_json_file('https://github.com/Ayush1702/ESG-Question-Answering/blob/5d1e30c614fd858d2edcfa185ed510fcb9c89c39/roberta-base/config.json')
+    model = AutoModelForQuestionAnswering.from_pretrained('roberta-base', from_tf=True, config=config)
     return model
 
 # if 'context' not in st.session_state:
