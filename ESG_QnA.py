@@ -45,7 +45,7 @@ set_bg_hack_url()
 
 @st.cache(allow_output_mutation=True)
 def esg_question_answering():
-    model_name = "roberta-base/"
+    model_name = "/app/esg-question-answering/roberta-base/"
     model = AutoModelForQuestionAnswering.from_pretrained(model_name, local_files_only=True)
     return model
 
@@ -68,7 +68,7 @@ if st.button('Submit'):
     question_input = st.session_state.question_default
     with st.spinner('Loading Model'):
         esg_model = esg_question_answering()
-    tokenizer_path = "roberta-base"
+    tokenizer_path = "/app/esg-question-answering/roberta-base"
     tokenizer = AutoTokenizer.from_pretrained(tokenizer_path, local_files_only=True)
     question_answerer = pipeline("question-answering", model=esg_model, tokenizer=tokenizer)
     result = question_answerer(question=question_input, context=context_input)
