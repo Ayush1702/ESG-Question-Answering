@@ -73,7 +73,7 @@ if st.button('Submit'):
     model_name = "/app/esg-question-answering/roberta-base/"
     with st.spinner('Loading Model'):
         config = RobertaConfig.from_pretrained(model_name, cache_dir= model_name, proxies=proxies)
-        esg_model = RobertaForQuestionAnswering.from_config("/app/esg-question-answering/roberta-base/")
+        esg_model = RobertaForQuestionAnswering.from_config(config)
     tokenizer_path = "/app/esg-question-answering/roberta-base/"
     tokenizer = RobertaTokenizer.from_pretrained(tokenizer_path, proxies=proxies)
     question_answerer = pipeline("question-answering", model=esg_model, tokenizer=tokenizer)
