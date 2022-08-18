@@ -72,7 +72,7 @@ if st.button('Submit'):
     question_input = st.session_state.question_default
     model_name = "roberta-base/"
     config = RobertaConfig.from_pretrained(model_name, cache_dir= model_name, proxies=proxies)
-    esg_model = RobertaForQuestionAnswering.from_config(config)
+    esg_model = AutoModelForQuestionAnswering.from_config(config)
     tokenizer_path = "roberta-base/"
     tokenizer = RobertaTokenizer.from_pretrained(tokenizer_path, proxies=proxies)
     question_answerer = pipeline("question-answering", model=esg_model, tokenizer=tokenizer)
