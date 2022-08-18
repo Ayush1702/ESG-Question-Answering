@@ -46,7 +46,7 @@ set_bg_hack_url()
 @st.cache(allow_output_mutation=True)
 def esg_question_answering():
     model_name = "/app/esg-question-answering/roberta-base/"
-    config = AutoConfig.from_pretrained('/app/esg-question-answering/roberta-base/')
+    config = AutoConfig.from_pretrained('/app/esg-question-answering/roberta-base/', cache_dir= model_name)
     model = AutoModelForQuestionAnswering.from_config(config)
     # config = BertConfig.from_pretrained('bert-base-uncased')    # Download configuration from S3 and cache.
     # model = AutoModelForQuestionAnswering.from_config(config)
