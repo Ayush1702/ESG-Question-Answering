@@ -3,6 +3,7 @@ import copy
 import numpy as np
 from transformers import AutoConfig, AutoModel, QuestionAnsweringPipeline
 from transformers import AutoModelForQuestionAnswering, AutoTokenizer, pipeline
+from transformers import RobertaTokenizer, RobertaForQuestionAnswering
 import torch
 from numpy import ndarray
 from transformers import pipeline
@@ -45,9 +46,9 @@ set_bg_hack_url()
 
 @st.cache(allow_output_mutation=True)
 def esg_question_answering():
-    model_name = "/app/esg-question-answering/roberta-base/"
-    config = AutoConfig.from_pretrained('/app/esg-question-answering/roberta-base/', cache_dir= model_name)
-    model = AutoModelForQuestionAnswering.from_config(config)
+    model_name = "/app/esg-question-answering/roberta-base"
+    # config = AutoConfig.from_pretrained(model_name, cache_dir= model_name)
+    model = RobertaForQuestionAnswering.from_pretrained(model_name)
     # config = BertConfig.from_pretrained('bert-base-uncased')    # Download configuration from S3 and cache.
     # model = AutoModelForQuestionAnswering.from_config(config)
     return model
@@ -72,7 +73,7 @@ if st.button('Submit'):
     with st.spinner('Loading Model'):
         esg_model = esg_question_answering()
     tokenizer_path = "/app/esg-question-answering/roberta-base/"
-    tokenizer = AutoTokenizer.from_pretrained(tokenizer_path)
+    tokenizer = RobertaTokenizer.from_pretrained(tokenizer_path)
     question_answerer = pipeline("question-answering", model=esg_model, tokenizer=tokenizer)
     result = question_answerer(question=question_input, context=context_input)
     st.write(HTML_WRAPPER.format(result['answer']), unsafe_allow_html=True)
