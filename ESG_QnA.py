@@ -3,7 +3,9 @@ import copy
 import numpy as np
 from transformers import AutoConfig, AutoModel, QuestionAnsweringPipeline
 from transformers import AutoModelForQuestionAnswering, AutoTokenizer, pipeline
+import torch
 from numpy import ndarray
+from spacy.lang.en import English
 from transformers import pipeline
 import streamlit as st
 
