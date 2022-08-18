@@ -34,7 +34,7 @@ def set_bg_hack_url():
          f"""
          <style>
          .stApp {{
-             background: url(https://unsplash.com/photos/3ODJ3CeHlUo/download?ixid=MnwxMjA3fDB8MXxzZWFyY2h8Mjd8fGp1bmdsZXxlbnwwfHx8fDE2NjA3ODYzNDM&force=true);
+             background: url(https://unsplash.com/photos/jqgsM3B9Fpo/download?force=true);
              background-size: cover
          }}
          </style>
@@ -60,7 +60,7 @@ with open("sample_context.txt", encoding="utf-8") as f:
 session_question_input_sample = "What is the emission reduction target aimed?"
 
 context_para_input = st.text_area("Enter Context Paragraph", sample_input_context, height = 400)
-question_input = st.text_area("Enter Question", session_question_input_sample, height = 45)
+question_input = st.text_area("Enter Question", session_question_input_sample, height = 25)
 st.session_state.context, st.session_state.question_default = context_para_input, question_input
 
 if st.button('Submit'):
