@@ -1,4 +1,1 @@
-transformers[sentencepiece]
-streamlit
-pandas
-numpy
+transformers==4.3.2
