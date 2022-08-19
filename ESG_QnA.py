@@ -42,7 +42,7 @@ def set_bg_hack_url():
 set_bg_hack_url()
 
 
-model_name = "/app/esg-question-answering/roberta-base/"
+model_name = "https://github.com/Ayush1702/ESG-Question-Answering/blob/main/roberta-base/"
 def esg_question_answering(model_name):
     model = RobertaForQuestionAnswering.from_pretrained(model_name, local_files_only=True)
     return model
