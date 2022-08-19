@@ -1,7 +1,7 @@
 import re
 import copy
 import numpy as np
-from transformers import AutoConfig, AutoModel, QuestionAnsweringPipeline
+from transformers import AutoConfig, AutoModel, QuestionAnsweringPipeline, RobertaForQuestionAnswering
 from transformers import AutoModelForQuestionAnswering, AutoTokenizer, pipeline
 import torch
 from numpy import ndarray
@@ -41,10 +41,10 @@ def set_bg_hack_url():
      )
 set_bg_hack_url()
 
-@st.cache(allow_output_mutation=True)
-def esg_question_answering():
-    model_name = "roberta-base/"
-    model = AutoModelForQuestionAnswering.from_pretrained(model_name, local_files_only=True)
+
+model_name = "/app/esg-question-answering/roberta-base/"
+def esg_question_answering(model_name):
+    model = RobertaForQuestionAnswering.from_pretrained(model_name, local_files_only=True)
     return model
 
 with open("sample_context.txt", encoding="utf-8") as f:
@@ -60,8 +60,8 @@ if st.button('Submit'):
     context_input = st.session_state.context
     question_input = st.session_state.question_default
     with st.spinner('Loading Model'):
-        esg_model = esg_question_answering()
-    tokenizer_path = "/app/esg-question-answering/roberta-base"
+        esg_model = esg_question_answering(model_name)
+    tokenizer_path = "/app/esg-question-answering/roberta-base/"
     tokenizer = AutoTokenizer.from_pretrained(tokenizer_path, local_files_only=True)
     question_answerer = pipeline("question-answering", model=esg_model, tokenizer=tokenizer)
     result = question_answerer(question=question_input, context=context_input)
