@@ -2,7 +2,7 @@ import re
 import copy
 import numpy as np
 from transformers import AutoConfig, AutoModel, QuestionAnsweringPipeline, RobertaConfig
-from transformers import AutoModelForQuestionAnswering, AutoTokenizer, pipeline
+from transformers import AutoModelForQuestionAnswering, AutoTokenizer, pipeline, RobertaForQuestionAnswering
 from numpy import ndarray
 from transformers import pipeline
 import streamlit as st
