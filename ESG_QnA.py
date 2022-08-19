@@ -60,7 +60,7 @@ if st.button('Submit'):
     context_input = st.session_state.context
     question_input = st.session_state.question_default
     with st.spinner('Loading Model'):
-        esg_model = esg_question_answering(model_name)
+        esg_model = esg_question_answering(model_name=model_name)
     tokenizer_path = "/app/esg-question-answering/roberta-base/"
     tokenizer = AutoTokenizer.from_pretrained(tokenizer_path, local_files_only=True)
     question_answerer = pipeline("question-answering", model=esg_model, tokenizer=tokenizer)
