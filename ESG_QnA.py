@@ -43,8 +43,8 @@ set_bg_hack_url()
 
 
 model_dir = "roberta-base/"
-def esg_question_answering(cache_dir):
-    model = RobertaForQuestionAnswering.from_pretrained(cache_dir, local_files_only=True)
+def esg_question_answering(pretrained_model_name_or_path):
+    model = RobertaForQuestionAnswering.from_pretrained(pretrained_model_name_or_path, local_files_only=True)
     return model
 
 with open("sample_context.txt", encoding="utf-8") as f:
@@ -60,7 +60,7 @@ if st.button('Submit'):
     context_input = st.session_state.context
     question_input = st.session_state.question_default
     with st.spinner('Loading Model'):
-        esg_model = esg_question_answering(cache_dir = model_dir)
+        esg_model = esg_question_answering(pretrained_model_name_or_path = model_dir)
     tokenizer = AutoTokenizer.from_pretrained(cache_dir = model_dir, local_files_only=True)
     question_answerer = pipeline("question-answering", model=esg_model, tokenizer=tokenizer)
     result = question_answerer(question=question_input, context=context_input)
