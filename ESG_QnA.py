@@ -44,8 +44,8 @@ set_bg_hack_url()
 model_dir = "roberta-base/"
 
 @st.cache(persist=True)
-def esg_question_answering(pretrained_model_name_or_path):
-    model = RobertaForQuestionAnswering.from_pretrained(pretrained_model_name_or_path, local_files_only=True)
+def esg_question_answering(model_name):
+    model = AutoModelForQuestionAnswering.from_pretrained(model_name, local_files_only=True)
     return model
 
 with open("sample_context.txt", encoding="utf-8") as f:
