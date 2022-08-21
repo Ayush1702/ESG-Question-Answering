@@ -1,4 +1,8 @@
 transformers==4.3.2
+tokenizers=0.10.1
+requests==2.27.1
+sacremoses==0.0.43
 streamlit==1.9.0
 protobuf==3.17.3
-torch==1.10
+torch==1.10.0+cu113
+typing-extensions==4.2.0
