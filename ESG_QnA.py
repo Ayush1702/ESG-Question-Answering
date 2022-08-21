@@ -60,8 +60,8 @@ st.session_state.context, st.session_state.question_default = context_para_input
 if st.button('Submit'):
     context_input = st.session_state.context
     question_input = st.session_state.question_default
-    esg_model = esg_question_answering(model_dir)
-    tokenizer = AutoTokenizer.from_pretrained(cache_dir = model_dir, local_files_only=True)
-    question_answerer = pipeline("question-answering", model=esg_model, tokenizer=tokenizer, framework="pt")
+    # esg_model = esg_question_answering(model_dir)
+    # tokenizer = AutoTokenizer.from_pretrained(cache_dir = model_dir, local_files_only=True)
+    question_answerer = pipeline("question-answering", model=esg_question_answering(model_dir), tokenizer=AutoTokenizer.from_pretrained(cache_dir = model_dir, local_files_only=True), framework="pt")
     result = question_answerer(question=question_input, context=context_input)
     st.write(HTML_WRAPPER.format(result['answer']), unsafe_allow_html=True)
