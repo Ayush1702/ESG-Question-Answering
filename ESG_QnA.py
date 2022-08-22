@@ -63,7 +63,7 @@ if add_selectbox == 'Example 1 - Ventas Inc':
     if question_selectbox == 'Target Aimed':
         session_question_input_sample = "What is the emission reduction target supposedly aimed?"
     elif question_selectbox == 'Methodology/Mechanism':
-        session_question_input_sample = "What emssion reduction methodology or mechanism is used here?"
+        session_question_input_sample = "What emission reduction methodology or mechanism is used here?"
 
     context_para_input = st.text_area("Enter Context Paragraph", sample_input_context, height = 400)
     question_input = st.text_area("Enter Question", session_question_input_sample, height = 15)
@@ -76,7 +76,7 @@ if add_selectbox == 'Example 2 - Bridgestone Corporation':
     if question_selectbox == 'Target Aimed':
         session_question_input_sample = "What is the emission reduction target supposedly aimed?"
     elif question_selectbox == 'Methodology/Mechanism':
-        session_question_input_sample = "What emssion reduction methodology or mechanism is used here?"
+        session_question_input_sample = "What emission reduction methodology or mechanism is used here?"
 
     context_para_input = st.text_area("Enter Context Paragraph", sample_input_context, height = 400)
     question_input = st.text_area("Enter Question", session_question_input_sample, height = 15)
@@ -89,7 +89,7 @@ if add_selectbox == 'Example 3 - Humana Inc':
     if question_selectbox == 'Target Aimed':
         session_question_input_sample = "What is the emission reduction target supposedly aimed?"
     elif question_selectbox == 'Methodology/Mechanism':
-        session_question_input_sample = "What emssion reduction methodology or mechanism is used here?"
+        session_question_input_sample = "What emission reduction methodology or mechanism is used here?"
 
     context_para_input = st.text_area("Enter Context Paragraph", sample_input_context, height = 400)
     question_input = st.text_area("Enter Question", session_question_input_sample, height = 15)
