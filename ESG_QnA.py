@@ -52,8 +52,6 @@ question_selectbox = st.sidebar.selectbox(
     ("Target Aimed", "Methodology/Mechanism")
 )
 
-model_dir = 
-
 @st.cache(persist=True)
 def esg_question_answering(model_name):
     model = AutoModelForQuestionAnswering.from_pretrained(model_name, local_files_only=True)
