@@ -2,11 +2,9 @@ import re
 import os
 import copy
 import numpy as np
-from transformers import AutoConfig, AutoModel, QuestionAnsweringPipeline, RobertaForQuestionAnswering
-from transformers import AutoModelForQuestionAnswering, AutoTokenizer, pipeline
+from transformers import AutoConfig, AutoModel, RobertaForQuestionAnswering, AutoModelForQuestionAnswering, AutoTokenizer, pipeline
 import torch
 from numpy import ndarray
-from transformers import pipeline
 import streamlit as st
 cwd = os.getcwd()
 st.text(cwd)
@@ -101,9 +99,6 @@ if add_selectbox == 'Example 3 - Humana Inc':
     context_para_input = st.text_area("Enter Context Paragraph", sample_input_context, height = 400)
     question_input = st.text_area("Enter Question", session_question_input_sample, height = 15)
     st.session_state.context, st.session_state.question_default = context_para_input, question_input
-
-cwd = os.getcwd()
-st.text(cwd)
 
 if st.button('Submit'):
     context_input = st.session_state.context
