@@ -2,7 +2,7 @@ import re
 import os
 import copy
 import numpy as np
-from transformers import AutoConfig, RobertaConfig, AutoModel, RobertaForQuestionAnswering, AutoModelForQuestionAnswering, AutoTokenizer, pipeline, BertConfig
+from transformers import AutoConfig, RobertaConfig, AutoModel, RobertaForQuestionAnswering, AutoModelForQuestionAnswering, AutoTokenizer, pipeline
 import torch
 from numpy import ndarray
 import streamlit as st
@@ -52,7 +52,7 @@ question_selectbox = st.sidebar.selectbox(
 )
 
 def esg_question_answering():
-    config = BertConfig.from_pretrained(
+    config = AutoConfig.from_pretrained(
     "/app/esg-question-answering/roberta-base/config.json"
 )
     esg_model = RobertaForQuestionAnswering.from_pretrained(
