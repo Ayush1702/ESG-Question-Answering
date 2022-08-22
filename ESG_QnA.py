@@ -55,7 +55,7 @@ def esg_question_answering():
     config = RobertaConfig.from_pretrained(
     "/roberta-base/config.json"
 )
-    esg_model = RobertaModelForQuestionAnswering.from_pretrained(
+    esg_model = RobertaForQuestionAnswering.from_pretrained(
     "/roberta-base/model.bin",
     config=config
 )
