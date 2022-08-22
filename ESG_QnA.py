@@ -57,7 +57,8 @@ def esg_question_answering():
 )
     esg_model = RobertaForQuestionAnswering.from_pretrained(
     "/roberta-base/model.bin",
-    config=config
+    config=config,
+    local_files_only=True
 )
     return esg_model
 
