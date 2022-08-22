@@ -52,14 +52,8 @@ question_selectbox = st.sidebar.selectbox(
 )
 
 def esg_question_answering():
-    config = AutoConfig.from_pretrained(
-    "/app/esg-question-answering/roberta-base/config.json",
-    local_files_only=True
-)
     esg_model = RobertaForQuestionAnswering.from_pretrained(
-    "/app/esg-question-answering/roberta-base/model.bin",
-    config=config
-)
+    "Ayushb/roberta-base-ft-esg"
     return esg_model
 
 if add_selectbox == 'Example 1 - Ventas Inc':
@@ -105,7 +99,7 @@ if st.button('Submit'):
     context_input = st.session_state.context
     question_input = st.session_state.question_default
     esg_model = esg_question_answering()
-    tokenizer = AutoTokenizer.from_pretrained("roberta-base", local_files_only=True)
+    tokenizer = AutoTokenizer.from_pretrained("Ayushb/roberta-base-ft-esg")
     question_answerer = pipeline("question-answering", model=esg_model, tokenizer=tokenizer, framework="pt")
     result = question_answerer(question=question_input, context=context_input)
     if result['answer'] == '.' or '':
