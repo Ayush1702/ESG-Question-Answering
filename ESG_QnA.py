@@ -2,7 +2,7 @@ import re
 import os
 import copy
 import numpy as np
-from transformers import AutoConfig, AutoModel, RobertaForQuestionAnswering, AutoModelForQuestionAnswering, AutoTokenizer, pipeline
+from transformers import AutoConfig, RobertaConfig, AutoModel, RobertaForQuestionAnswering, AutoModelForQuestionAnswering, AutoTokenizer, pipeline
 import torch
 from numpy import ndarray
 import streamlit as st
@@ -52,11 +52,14 @@ question_selectbox = st.sidebar.selectbox(
 )
 
 def esg_question_answering():
-    parent_dir = os.path.abspath(os.path.join(cwd, os.pardir))
-    model_dir = os.path.join(parent_dir, "esg-question-answering/roberta-base/")
-    model_name = model_dir
-    model = AutoModelForQuestionAnswering.from_pretrained(model_name, local_files_only=True)
-    return model
+    config = RobertaConfig.from_pretrained(
+    "/roberta-base/config.json"
+)
+    esg_model = RobertaModelForQuestionAnswering.from_pretrained(
+    "/roberta-base/model.bin",
+    config=config
+)
+    return esg_model
 
 if add_selectbox == 'Example 1 - Ventas Inc':
     with open("sample_context.txt", encoding="utf-8") as f:
