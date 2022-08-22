@@ -53,8 +53,6 @@ question_selectbox = st.sidebar.selectbox(
 
 def esg_question_answering():
     parent_dir = os.path.abspath(os.path.join(cwd, os.pardir))
-
-# get path for "model" folder
     model_dir = os.path.join(parent_dir, "esg-question-answering/roberta-base/")
     model_name = model_dir
     model = AutoModelForQuestionAnswering.from_pretrained(model_name, local_files_only=True)
@@ -103,13 +101,8 @@ if st.button('Submit'):
     context_input = st.session_state.context
     question_input = st.session_state.question_default
     esg_model = esg_question_answering()
-    parent_dir = os.path.abspath(os.path.join(cwd, os.pardir))
-
-# get path for "model" folder
-    model_dir = os.path.join(parent_dir, "esg-question-answering/roberta-base/")
-    model_name = model_dir
-    tokenizer = AutoTokenizer.from_pretrained(cache_dir = model_name, local_files_only=True)
-    question_answerer = pipeline("question-answering", model=esg_model, tokenizer=tokenizer, local_files_only=True, framework="pt")
+    tokenizer = AutoTokenizer.from_pretrained("roberta-base", local_files_only=True)
+    question_answerer = pipeline("question-answering", model=esg_model, tokenizer=tokenizer, framework="pt")
     result = question_answerer(question=question_input, context=context_input)
     if result['answer'] == '.' or '':
         st.text("no answer present in the given context")
