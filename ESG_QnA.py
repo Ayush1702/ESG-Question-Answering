@@ -95,6 +95,17 @@ if add_selectbox == 'Example 3 - Humana Inc':
     question_input = st.text_area("Enter Question", session_question_input_sample, height = 15)
     st.session_state.context, st.session_state.question_default = context_para_input, question_input
 
+else:
+    with open("sample_context_3.txt", encoding="utf-8") as f:
+        contents = f.readlines()
+        sample_input_context = "".join(contents).lstrip().replace("\n"," ").replace("  ", " ")
+        session_question_input_sample = "What is the emission reduction target supposedly aimed?"
+        session_question_input_sample = "What emission reduction methodology or mechanism is used here?"
+
+    context_para_input = st.text_area("Enter Context Paragraph", sample_input_context, height = 400)
+    question_input = st.text_area("Enter Question", session_question_input_sample, height = 15)
+    st.session_state.context, st.session_state.question_default = context_para_input, question_input
+
 if st.button('Submit'):
     context_input = st.session_state.context
     question_input = st.session_state.question_default
