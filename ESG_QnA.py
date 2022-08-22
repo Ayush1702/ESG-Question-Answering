@@ -51,8 +51,9 @@ question_selectbox = st.sidebar.selectbox(
     ("Target Aimed", "Methodology/Mechanism")
 )
 
+@st.cache(persist=True)
 def esg_question_answering():
-    esg_model = RobertaForQuestionAnswering.from_pretrained("Ayushb/roberta-base-ft-esg")
+    esg_model = AutoModelForQuestionAnswering.from_pretrained("Ayushb/roberta-base-ft-esg")
     return esg_model
 
 if add_selectbox == 'Example 1 - Ventas Inc':
