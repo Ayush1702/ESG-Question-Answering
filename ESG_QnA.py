@@ -7,10 +7,10 @@ import torch
 from numpy import ndarray
 from transformers import pipeline
 import streamlit as st
-
+cwd = os.getcwd()
+st.text(cwd)
 st.title("ESG Question Answering")
 st.write('You can paste your context text in the field below along with the question.')
-
 HTML_WRAPPER = """<div style="
                        overflow-x: auto; 
                        border: 1px solid #e6e9ef; 
@@ -53,7 +53,12 @@ question_selectbox = st.sidebar.selectbox(
 )
 
 @st.cache(persist=True)
-def esg_question_answering(model_name):
+def esg_question_answering():
+    parent_dir = os.path.abspath(os.path.join(cwd, os.pardir))
+
+# get path for "model" folder
+    model_dir = os.path.join(parent_dir, "./roberta-base/")
+    model_name = model_dir
     model = AutoModelForQuestionAnswering.from_pretrained(model_name, local_files_only=True)
     return model
 
@@ -96,12 +101,20 @@ if add_selectbox == 'Example 3 - Humana Inc':
     question_input = st.text_area("Enter Question", session_question_input_sample, height = 15)
     st.session_state.context, st.session_state.question_default = context_para_input, question_input
 
+cwd = os.getcwd()
+st.text(cwd)
+
 if st.button('Submit'):
     context_input = st.session_state.context
     question_input = st.session_state.question_default
-    # esg_model = esg_question_answering(model_dir)
-    # tokenizer = AutoTokenizer.from_pretrained(cache_dir = model_dir, local_files_only=True)
-    question_answerer = pipeline("question-answering", model=esg_question_answering("./roberta-base/"), tokenizer=AutoTokenizer.from_pretrained("./roberta-base/", local_files_only=True), framework="pt")
+    esg_model = esg_question_answering()
+    parent_dir = os.path.abspath(os.path.join(cwd, os.pardir))
+
+# get path for "model" folder
+    model_dir = os.path.join(parent_dir, "./roberta-base/")
+    model_name = model_dir
+    tokenizer = AutoTokenizer.from_pretrained(cache_dir = model_name, local_files_only=True)
+    question_answerer = pipeline("question-answering", model=esg_model, tokenizer=tokenizer, local_files_only=True), framework="pt")
     result = question_answerer(question=question_input, context=context_input)
     if result['answer'] == '.' or '':
         st.text("no answer present in the given context")
