@@ -52,8 +52,7 @@ question_selectbox = st.sidebar.selectbox(
 )
 
 def esg_question_answering():
-    esg_model = RobertaForQuestionAnswering.from_pretrained(
-    "Ayushb/roberta-base-ft-esg"
+    esg_model = RobertaForQuestionAnswering.from_pretrained("Ayushb/roberta-base-ft-esg")
     return esg_model
 
 if add_selectbox == 'Example 1 - Ventas Inc':
@@ -98,7 +97,8 @@ if add_selectbox == 'Example 3 - Humana Inc':
 if st.button('Submit'):
     context_input = st.session_state.context
     question_input = st.session_state.question_default
-    esg_model = esg_question_answering()
+    with st.spinner('Loading Model'):
+        esg_model = esg_question_answering()
     tokenizer = AutoTokenizer.from_pretrained("Ayushb/roberta-base-ft-esg")
     question_answerer = pipeline("question-answering", model=esg_model, tokenizer=tokenizer, framework="pt")
     result = question_answerer(question=question_input, context=context_input)
