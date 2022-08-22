@@ -53,12 +53,12 @@ question_selectbox = st.sidebar.selectbox(
 
 def esg_question_answering():
     config = AutoConfig.from_pretrained(
-    "/app/esg-question-answering/roberta-base/config.json"
+    "/app/esg-question-answering/roberta-base/config.json",
+    local_files_only=True
 )
     esg_model = RobertaForQuestionAnswering.from_pretrained(
     "/app/esg-question-answering/roberta-base/model.bin",
-    config=config,
-    local_files_only=True
+    config=config
 )
     return esg_model
 
