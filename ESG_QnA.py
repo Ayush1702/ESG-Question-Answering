@@ -32,7 +32,7 @@ def set_bg_hack_url():
          f"""
          <style>
          .stApp {{
-             background: url(https://unsplash.com/photos/jqgsM3B9Fpo/download?force=true);
+             background: url(https://unsplash.com/photos/aL7SA1ASVdQ/download?ixid=MnwxMjA3fDB8MXxzZWFyY2h8MTl8fGZvcmVzdHxlbnwwfHx8fDE2NjExNTAyNTY&force=true);
              background-size: cover
          }}
          </style>
@@ -41,7 +41,7 @@ def set_bg_hack_url():
      )
 set_bg_hack_url()
 
-model_dir = "roberta-base/"
+model_dir = "./roberta-base/"
 
 @st.cache(persist=True)
 def esg_question_answering(model_name):
