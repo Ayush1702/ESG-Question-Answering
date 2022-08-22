@@ -114,7 +114,7 @@ if st.button('Submit'):
     model_dir = os.path.join(parent_dir, "./roberta-base/")
     model_name = model_dir
     tokenizer = AutoTokenizer.from_pretrained(cache_dir = model_name, local_files_only=True)
-    question_answerer = pipeline("question-answering", model=esg_model, tokenizer=tokenizer, local_files_only=True), framework="pt")
+    question_answerer = pipeline("question-answering", model=esg_model, tokenizer=tokenizer, local_files_only=True, framework="pt")
     result = question_answerer(question=question_input, context=context_input)
     if result['answer'] == '.' or '':
         st.text("no answer present in the given context")
