@@ -51,7 +51,6 @@ question_selectbox = st.sidebar.selectbox(
     ("Target Aimed", "Methodology/Mechanism")
 )
 
-@st.cache(persist=True)
 def esg_question_answering():
     parent_dir = os.path.abspath(os.path.join(cwd, os.pardir))
 
