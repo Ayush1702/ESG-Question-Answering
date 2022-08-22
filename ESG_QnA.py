@@ -41,27 +41,71 @@ def set_bg_hack_url():
      )
 set_bg_hack_url()
 
-model_dir = "./roberta-base/"
+st.sidebar.header("Select Examples")
+add_selectbox = st.sidebar.selectbox(
+    "Load preset context example",
+    ("Example 1 - Ventas Inc", "Example 2 - Bridgestone Corporation", "Example 3 - Humana Inc")
+)
+
+question_selectbox = st.sidebar.selectbox(
+    "Load preset question",
+    ("Target Aimed", "Methodology/Mechanism")
+)
+
+model_dir = 
 
 @st.cache(persist=True)
 def esg_question_answering(model_name):
     model = AutoModelForQuestionAnswering.from_pretrained(model_name, local_files_only=True)
     return model
 
-with open("sample_context.txt", encoding="utf-8") as f:
-    contents = f.readlines()
-    sample_input_context = "".join(contents).lstrip().replace("\n"," ").replace("  ", " ")
-session_question_input_sample = "What is the emission reduction target aimed?"
+if add_selectbox == 'Example 1 - Ventas Inc':
+    with open("sample_context.txt", encoding="utf-8") as f:
+        contents = f.readlines()
+        sample_input_context = "".join(contents).lstrip().replace("\n"," ").replace("  ", " ")
+    if question_selectbox == 'Target Aimed':
+        session_question_input_sample = "What is the emission reduction target supposedly aimed?"
+    elif question_selectbox == 'Methodology/Mechanism':
+        session_question_input_sample = "What emssion reduction methodology or mechanism is used here?"
 
-context_para_input = st.text_area("Enter Context Paragraph", sample_input_context, height = 400)
-question_input = st.text_area("Enter Question", session_question_input_sample, height = 25)
-st.session_state.context, st.session_state.question_default = context_para_input, question_input
+    context_para_input = st.text_area("Enter Context Paragraph", sample_input_context, height = 400)
+    question_input = st.text_area("Enter Question", session_question_input_sample, height = 15)
+    st.session_state.context, st.session_state.question_default = context_para_input, question_input
+
+if add_selectbox == 'Example 2 - Bridgestone Corporation':
+    with open("sample_context_2.txt", encoding="utf-8") as f:
+        contents = f.readlines()
+        sample_input_context = "".join(contents).lstrip().replace("\n"," ").replace("  ", " ")
+    if question_selectbox == 'Target Aimed':
+        session_question_input_sample = "What is the emission reduction target supposedly aimed?"
+    elif question_selectbox == 'Methodology/Mechanism':
+        session_question_input_sample = "What emssion reduction methodology or mechanism is used here?"
+
+    context_para_input = st.text_area("Enter Context Paragraph", sample_input_context, height = 400)
+    question_input = st.text_area("Enter Question", session_question_input_sample, height = 15)
+    st.session_state.context, st.session_state.question_default = context_para_input, question_input
+
+if add_selectbox == 'Example 3 - Humana Inc':
+    with open("sample_context_3.txt", encoding="utf-8") as f:
+        contents = f.readlines()
+        sample_input_context = "".join(contents).lstrip().replace("\n"," ").replace("  ", " ")
+    if question_selectbox == 'Target Aimed':
+        session_question_input_sample = "What is the emission reduction target supposedly aimed?"
+    elif question_selectbox == 'Methodology/Mechanism':
+        session_question_input_sample = "What emssion reduction methodology or mechanism is used here?"
+
+    context_para_input = st.text_area("Enter Context Paragraph", sample_input_context, height = 400)
+    question_input = st.text_area("Enter Question", session_question_input_sample, height = 15)
+    st.session_state.context, st.session_state.question_default = context_para_input, question_input
 
 if st.button('Submit'):
     context_input = st.session_state.context
     question_input = st.session_state.question_default
     # esg_model = esg_question_answering(model_dir)
     # tokenizer = AutoTokenizer.from_pretrained(cache_dir = model_dir, local_files_only=True)
-    question_answerer = pipeline("question-answering", model=esg_question_answering(model_dir), tokenizer=AutoTokenizer.from_pretrained(cache_dir = model_dir, local_files_only=True), framework="pt")
+    question_answerer = pipeline("question-answering", model=esg_question_answering("./roberta-base/"), tokenizer=AutoTokenizer.from_pretrained("./roberta-base/", local_files_only=True), framework="pt")
     result = question_answerer(question=question_input, context=context_input)
-    st.write(HTML_WRAPPER.format(result['answer']), unsafe_allow_html=True)
+    if result['answer'] == '.' or '':
+        st.text("no answer present in the given context")
+    else:
+        st.write(HTML_WRAPPER.format(result['answer']), unsafe_allow_html=True)
