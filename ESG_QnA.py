@@ -42,7 +42,7 @@ set_bg_hack_url()
 st.sidebar.header("Select Examples")
 add_selectbox = st.sidebar.selectbox(
     "Load preset context example",
-    ("Example 1 - Walmart", "Example 2 - Bridgestone Corporation", "Example 3 - Humana Inc")
+    ("Example 1 - Walmart", "Example 2 - Schneider Electric", "Example 3 - Humana Inc")
 )
 
 question_selectbox = st.sidebar.selectbox(
@@ -68,7 +68,7 @@ if add_selectbox == 'Example 1 - Walmart':
     question_input = st.text_area("Enter Question", session_question_input_sample, height = 15)
     st.session_state.context, st.session_state.question_default = context_para_input, question_input
 
-if add_selectbox == 'Example 2 - Bridgestone Corporation':
+if add_selectbox == 'Example 2 - Schneider Electric':
     with open("sample_context_2.txt", encoding="utf-8") as f:
         contents = f.readlines()
         sample_input_context = "".join(contents).lstrip().replace("\n"," ").replace("  ", " ")
