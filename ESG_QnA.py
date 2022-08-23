@@ -42,7 +42,7 @@ set_bg_hack_url()
 st.sidebar.header("Select Examples")
 add_selectbox = st.sidebar.selectbox(
     "Load preset context example",
-    ("Example 1 - Ventas Inc", "Example 2 - Bridgestone Corporation", "Example 3 - Humana Inc")
+    ("Example 1 - Walmart", "Example 2 - Bridgestone Corporation", "Example 3 - Humana Inc")
 )
 
 question_selectbox = st.sidebar.selectbox(
