@@ -55,7 +55,7 @@ def esg_question_answering():
     esg_model = AutoModelForQuestionAnswering.from_pretrained("Ayushb/roberta-base-ft-esg")
     return esg_model
 
-if add_selectbox == 'Example 1 - Ventas Inc':
+if add_selectbox == 'Example 1 - Walmart':
     with open("sample_context.txt", encoding="utf-8") as f:
         contents = f.readlines()
         sample_input_context = "".join(contents).lstrip().replace("\n"," ").replace("  ", " ")
