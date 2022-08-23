@@ -2,7 +2,7 @@ import re
 import os
 import copy
 import numpy as np
-from transformers import AutoConfig, RobertaConfig, AutoModel, RobertaForQuestionAnswering, AutoModelForQuestionAnswering, AutoTokenizer, pipeline
+from transformers import AutoConfig, RobertaConfig, AutoModel, RobertaForQuestionAnswering, AutoModelForQuestionAnswering, AutoTokenizer, pipeline, RobertaTokenizer
 import torch
 from numpy import ndarray
 import streamlit as st
@@ -52,7 +52,7 @@ question_selectbox = st.sidebar.selectbox(
 
 @st.cache(persist=True)
 def esg_question_answering():
-    esg_model = AutoModelForQuestionAnswering.from_pretrained("Ayushb/roberta-base-ft-esg")
+    esg_model = RobertaForQuestionAnswering.from_pretrained("Ayushb/roberta-base-ft-esg")
     return esg_model
 
 if add_selectbox == 'Example 1 - Walmart':
@@ -99,7 +99,7 @@ if st.button('Submit'):
     question_input = st.session_state.question_default
     with st.spinner('Loading Model'):
         esg_model = esg_question_answering()
-    tokenizer = AutoTokenizer.from_pretrained("Ayushb/roberta-base-ft-esg")
+    tokenizer = RobertaTokenizer.from_pretrained("Ayushb/roberta-base-ft-esg")
     question_answerer = pipeline("question-answering", model=esg_model, tokenizer=tokenizer, framework="pt")
     result = question_answerer(question=question_input, context=context_input)
     if result['answer'] == '.' or '':
